@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block body %}
+<script>
+    $(function ($) {
+        $("a").tooltip()
+    });
+</script>
+
+	<div class="hero-unit">
+
+{% if status %}
+	
+	<p><h2>Status</h2><p>
+	<p>{{status}}</p>
+	<p><a href="/">Subscribe another email address</a></p>
+	</div>
+	
+{% else %}
+	
+	<p><h2>Signup</h2><p>
+
+	</div>
+
+  <form action="" method=post class="form-horizontal" enctype = "multipart/form-data">
+   		
+	<div class="control-group">
+	    <label class="control-label" for="email">Your email address</label>
+        <div class="controls">
+		    <input type="text" name="email" class="input-xlarge" placeholder="Your email address" value="{{email}}" required/>
+        </div>
+    </div>
+    
+    <div class="control-group">
+	    <label class="control-label" for="firstname">First name</label>
+        <div class="controls">
+		    <input type="text" name="firstname" class="input-xlarge" placeholder="First name" value="{{firstname}}" required/>
+        </div>
+    </div>
+
+	<div class="control-group">
+	    <label class="control-label" for="lastname">Last name</label>
+        <div class="controls">
+		    <input type="text" name="lastname" class="input-xlarge" placeholder="Last name" value="{{lastname}}" required/>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+          <button type="submit" value=Upload class="btn btn-success">Subscribe</button>
+        </div>
+    </div>
+  </form>
+ 
+    
+{% endif %}
+
+{% endblock %}
