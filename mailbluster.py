@@ -23,8 +23,10 @@ class Mailbluster():
 
     def create_lead(self,email,first_name='',last_name=''):
         '''
-        Creates a new lead *args and kwargs can we use here? unpack and add
+        Creates a new lead 
+        *args and kwargs can we use here? unpack and add
         '''
+        raise NotImplementedError
         payload = {}
         payload["firstName"] = first_name
         payload["lastName"] = last_name
@@ -48,8 +50,7 @@ class Mailbluster():
         '''
         Updates a lead ()
         '''
-        addTags
-        removeTag
+        raise NotImplementedError
         lead_md5_hash = (hashlib.md5(lead_email)).hexdigest()
         return self.__perform_request(self.base_url + 'leads/' + lead_md5_hash, typeofr="put")
 
