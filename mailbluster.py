@@ -21,20 +21,22 @@ class Mailbluster():
         if typeofr == "delete": r = requests.delete(endpoint_url, data=payload, headers=headers)
         return r.json()
 
-    def create_lead(self,email,first_name='',last_name=''):
+    def __get_lead_md5_hash(lead_email):
+        '''
+        Returns md5 hash of supplied email address
+        '''
+        lead_email = lead_email.encode('utf-8')
+        return (hashlib.md5(lead_email)).hexdigest()
+
+    def create_lead(self,**kwargs):
         '''
         Creates a new lead 
-        *args and kwargs can we use here? unpack and add
+        required parameters: email
+        optional parameters: firstName, lastName, timezone, ipAddress, tags, meta,
         '''
-        raise NotImplementedError
-        payload = {}
-        payload["firstName"] = first_name
-        payload["lastName"] = last_name
-        payload["email"] = email
-        payload["timezone"] = timezone
-        payload["ipAddress"] = ipAddress
-        payload["tags"] = tags
-        payload["meta"] = meta
+        payload = locals()["kwargs"]
+        if "email" not in payload:
+            raise TypeError("Missing 'email' argument") 
         payload["subscribed"] = 'true'
         payload["overrideExisting"] = 'true'
         return self.__perform_request(self.base_url + 'leads', typeofr="post", payload=payload)
@@ -42,22 +44,27 @@ class Mailbluster():
     def read_lead(self,lead_email):
         '''
         Reads a lead
+        required parameters: email
         '''
-        lead_md5_hash = (hashlib.md5(lead_email)).hexdigest()
+        lead_md5_hash = self.__get_lead_md5_hash(lead_email)
         return self.__perform_request(self.base_url + 'leads/' + lead_md5_hash, typeofr="get")
 
-    def update_lead(self,lead_email):
+    def update_lead(self,**kwargs):
         '''
-        Updates a lead ()
+        Updates a lead
+        required parameters: email
+        optional parameters: firstName, lastName, timezone, ipAddress, meta, addTags, removeTags
         '''
-        raise NotImplementedError
-        lead_md5_hash = (hashlib.md5(lead_email)).hexdigest()
-        return self.__perform_request(self.base_url + 'leads/' + lead_md5_hash, typeofr="put")
+        payload = locals()["kwargs"]
+        if "email" not in payload:
+            raise TypeError("Missing 'email' argument") 
+        lead_md5_hash = self.__get_lead_md5_hash(payload["email"])
+        return self.__perform_request(self.base_url + 'leads/' + lead_md5_hash, typeofr="put", payload=payload)
 
     def delete_lead(self,lead_email):
         '''
         Deletes a lead
+        required parameters: email
         '''
-        lead_md5_hash = (hashlib.md5(lead_email)).hexdigest()
+        lead_md5_hash = self.__get_lead_md5_hash(lead_email)
         return self.__perform_request(self.base_url + 'leads/' + lead_md5_hash, typeofr="delete")
-

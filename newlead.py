@@ -18,7 +18,7 @@ def index():
         lead_email = re.sub('[^a-zA-Z0-9-_@.]', '', request.form['email'])
         first_name = re.sub('[^a-zA-Z0-9-_ @.]', '', request.form['firstname'])
         last_name = re.sub('[^a-zA-Z0-9-_@ .]', '', request.form['lastname'])
-        response = mailblusterclient.create_lead(lead_email,first_name,last_name)
+        response = mailblusterclient.create_lead(email=lead_email,firstName=first_name,lastName=last_name)
         if response['message'] =='Lead created':
             status = 'You have been succesfully subscribed'
         else:
