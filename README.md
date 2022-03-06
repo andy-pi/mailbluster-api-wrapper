@@ -5,9 +5,9 @@ An Python wrapper for the [Mailbluster API](https://app.mailbluster.com/api-doc/
 
 ## Minimal Example  
 
-from mailbluster import Mailbluster  
-mailblusterclient = Mailbluster(mailbluster_api_key)  
-response = mailblusterclient.create_lead(email="me@example.com",firstName="Andy",lastName="Pi")  
+`from mailbluster import Mailbluster`  
+`mailblusterclient = Mailbluster(mailbluster_api_key)`  
+`response = mailblusterclient.create_lead(email="me@example.com", firstName="Andy", lastName="Pi")`  
 
 ## Lead creation form  
 This repo also contains a [Flask-Zappa](https://github.com/zappa/Zappa) app for lead collection  
